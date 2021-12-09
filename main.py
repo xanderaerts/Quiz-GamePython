@@ -12,20 +12,50 @@ def draw_mainscreen():
     win.fill(WHITE)
     title = TITLE_FONT.render("Quiz Game",1,BLACK)
     win.blit(background,(0,0))
-    win.blit(title,(WIDTH/2 - title.get_width()/2,20))
+    win.blit(title,(WIDTH/2 - title.get_width()/2,30))
 
     mainButton.draw(win,(0,0,0))
 
     pg.display.update()
 
 def startGame():
-    drawGameScreen()
+    inGame = True
+    while(inGame):
+        win.blit(background,(0,0))
+
+        vragen = []
+        load_question(vragen)    
+        questions = QUESTION_FONT.render(vragen[0],1,BLACK)
+        win.blit(questions,(WIDTH/2 - questions.get_width()/2,20))
+
+        andwoordA = vragen[1]
+        andwoordB = vragen[2]
+        #andwoordC = vragen[3]
+
+        answerA = button(LIGHT_BLUE,(WIDTH/2-500/2),150,500,50,andwoordA)
+        answerA.draw(win,(0,0,0))
+        anwserB = button(LIGHT_BLUE,(WIDTH/2-500/2),210,500,50,andwoordB)
+        anwserB.draw(win,(0,0,0))
+        #answerC = button(LIGHT_BLUE,(WIDTH/2-500/2),260,500,50,andwoordC)
+        #answerC.draw(win,(0,0,0))
+        
+        for event in pg.event.get():
+            pos = pg.mouse.get_pos()
+            if(event.type == pg.MOUSEBUTTONDOWN):
+                if(answerA.isOver(pos)):
+                    print("a")
 
 
-def drawGameScreen():
-    win.fill(GREEN)
-    pg.display.update()
+        pg.display.update()
+    
 
+def load_question(questions):
+    FILE = open("questions.txt","r")
+
+    for i in range (1,4):
+        question = FILE.readline()
+        questions.append(question[:-1])
+    FILE.close()
 
 
 #main loop of the game

@@ -15,6 +15,7 @@ LIGHT_BLUE = (135,206,251)
 #fonts
 TITLE_FONT = pg.font.SysFont('comicans',70)
 MIDDLE_FONT = pg.font.SysFont('comicans',50)
+QUESTION_FONT = pg.font.SysFont('comicans',35)
 
 #Win settings
 WIDTH,HEIGHT = 900,500
@@ -31,3 +32,4 @@ background = pg.image.load("img/background.png")
 WIDTH_MainButton = 300
 HEIGHT_MainButton = 150
 mainButton = button(LIGHT_BLUE,(WIDTH/2-WIDTH_MainButton/2),(HEIGHT/2-HEIGHT_MainButton/2),WIDTH_MainButton,HEIGHT_MainButton,"START GAME")
+
