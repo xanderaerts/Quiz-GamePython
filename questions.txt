@@ -1,5 +1,5 @@
 1: Wat is de formule van de omterk van een cirkel ? 
-A: test
-B: test
-C: test
+A: peter
+B: paulien
+C: ewout
 AFBEELDING 1

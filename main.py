@@ -30,20 +30,25 @@ def startGame():
 
         andwoordA = vragen[1]
         andwoordB = vragen[2]
-        #andwoordC = vragen[3]
+        andwoordC = vragen[3]
 
         answerA = button(LIGHT_BLUE,(WIDTH/2-500/2),150,500,50,andwoordA)
         answerA.draw(win,(0,0,0))
         anwserB = button(LIGHT_BLUE,(WIDTH/2-500/2),210,500,50,andwoordB)
         anwserB.draw(win,(0,0,0))
-        #answerC = button(LIGHT_BLUE,(WIDTH/2-500/2),260,500,50,andwoordC)
-        #answerC.draw(win,(0,0,0))
+        answerC = button(LIGHT_BLUE,(WIDTH/2-500/2),270,500,50,andwoordC)
+        answerC.draw(win,(0,0,0))
         
         for event in pg.event.get():
             pos = pg.mouse.get_pos()
             if(event.type == pg.MOUSEBUTTONDOWN):
                 if(answerA.isOver(pos)):
                     print("a")
+                if(anwserB.isOver(pos)):
+                    print("b")
+                if(answerC.isOver(pos)):
+                    print("c")
+
 
 
         pg.display.update()
@@ -52,7 +57,7 @@ def startGame():
 def load_question(questions):
     FILE = open("questions.txt","r")
 
-    for i in range (1,4):
+    for i in range (1,5):
         question = FILE.readline()
         questions.append(question[:-1])
     FILE.close()
