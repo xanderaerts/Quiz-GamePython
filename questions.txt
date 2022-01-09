@@ -3,7 +3,7 @@
 A: Antwerpen
 B: Luik
 C: Brussel
-C 
+C
 2: Hoeveel provicies heeft België?
 A: 3
 B: 10
