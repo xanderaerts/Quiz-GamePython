@@ -1,5 +1,26 @@
-1: Wat is de formule van de omterk van een cirkel ? 
-A: peter
-B: paulien
-C: ewout
-AFBEELDING 1
+5
+1: Wie is het beste piefje op de wereld?
+A: lottie prottie
+B: piefje hartediefje
+C: liefje piefje prottie lottie
+C
+2: Hoe lang is een chinees?
+A: 1cm
+B: 3cm
+C: 100cm
+B
+3: Wat is de nationale taal in zuid-afrika
+A: zuid-spaans
+B: afrikaans
+C: zuid-afrikaans
+C
+4: Hoeveel cola's is een dozijn
+A: 1
+B: 2
+C: 12
+C
+5: Hoeveel eieren moet je in een ei steken?
+A: 1
+B: 2
+C: 3
+A

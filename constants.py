@@ -16,6 +16,7 @@ LIGHT_BLUE = (135,206,251)
 TITLE_FONT = pg.font.SysFont('comicans',70)
 MIDDLE_FONT = pg.font.SysFont('comicans',50)
 QUESTION_FONT = pg.font.SysFont('comicans',35)
+SCORE_FONT = pg.font.SysFont('comicans',25)
 
 #Win settings
 WIDTH,HEIGHT = 900,500
