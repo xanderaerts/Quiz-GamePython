@@ -15,8 +15,9 @@ LIGHT_BLUE = (135,206,251)
 #fonts
 TITLE_FONT = pygame.font.SysFont('comicans',70)
 MIDDLE_FONT = pygame.font.SysFont('comicans',50)
+LITTLE_FONT = pygame.font.SysFont('comicans',25)
 QUESTION_FONT = pygame.font.SysFont('comicans',35)
-SCORE_FONT = pygame.font.SysFont('comicans',25)
+
 
 #IMAGES
 DEFAULT_SIZE_IMG = (200,200)
@@ -40,4 +41,7 @@ background = pygame.image.load("img/background.png")
 WIDTH_MainButton = 300
 HEIGHT_MainButton = 150
 mainButton = button(LIGHT_BLUE,(WIDTH/2-WIDTH_MainButton/2),(HEIGHT/2-HEIGHT_MainButton/2),WIDTH_MainButton,HEIGHT_MainButton,"START GAME")
+WIDTH_restartButton = 200
+HEIGHT_restartButton = 100
+restartButton = button(LIGHT_BLUE,(WIDTH/2-WIDTH_restartButton/2),(HEIGHT/2-HEIGHT_restartButton/2),WIDTH_restartButton,HEIGHT_restartButton,"RESTART")
 

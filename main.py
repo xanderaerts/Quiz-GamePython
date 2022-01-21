@@ -1,3 +1,4 @@
+from re import S
 import pygame
 import os 
 import linecache
@@ -13,7 +14,7 @@ def draw_mainscreen():
     win.blit(background,(0,0))
     win.blit(title,(WIDTH/2 - title.get_width()/2,30))
 
-    mainButton.draw(win,(0,0,0))
+    mainButton.draw(win)
 
     draw_highScore()
 
@@ -21,7 +22,7 @@ def draw_mainscreen():
 
 
 def loadAmount():
-    F = open("questions.txt","r")
+    F = open("data/questions.txt","r")
     line = F.readline()
     amount = int(line)
     
@@ -38,30 +39,27 @@ def startGame():
         check = print_question(question,score)
 
         if(check == True):
-            i =0
             score += 1
-            while(i < 150):
-                win.blit(background,(0,0))
-                i = i + 1 
+            win.blit(background,(0,0))
+            
+            correct = TITLE_FONT.render("CORRECT",1,GREEN)
+            win.blit(correct,(WIDTH/2 - correct.get_width()/2,30))
 
-                correct = TITLE_FONT.render("CORRECT",1,GREEN)
-                win.blit(correct,(WIDTH/2 - correct.get_width()/2,30))
-
-                win.blit(correctEmoji,(WIDTH/2-correctEmoji.get_width()/2,100))
-                pygame.display.update()
+            win.blit(correctEmoji,(WIDTH/2-correctEmoji.get_width()/2,100))
+            pygame.display.update()
+            pygame.time.delay(800)
 
         elif(check == False):
-            i =0
-            while(i < 150):
-                win.blit(background,(0,0))
-                i = i + 1 
+            
+            win.blit(background,(0,0))
+            
+            wrong = TITLE_FONT.render("WRONG",1,RED)
+            win.blit(wrong,(WIDTH/2 - wrong.get_width()/2,30))
 
-                wrong = TITLE_FONT.render("WRONG",1,RED)
-                win.blit(wrong,(WIDTH/2 - wrong.get_width()/2,30))
+            win.blit(wrongEmoji,(WIDTH/2-wrongEmoji.get_width()/2,100))
 
-                win.blit(wrongEmoji,(WIDTH/2-wrongEmoji.get_width()/2,100))
-
-                pygame.display.update()
+            pygame.display.update()
+            pygame.time.delay(800)
 
         pygame.display.update() 
     return score
@@ -71,7 +69,7 @@ def load_question(question,questionNR):
 
     lineNR = 5 * (questionNR-1) + 2
     for i in range (0,5):
-        line = linecache.getline("questions.txt",lineNR)
+        line = linecache.getline("data/questions.txt",lineNR)
         if(i<5):
             question[keywords[i]] = line[:-1]
         else:
@@ -79,9 +77,8 @@ def load_question(question,questionNR):
         lineNR += 1
 
 def print_score(score):
-    print(score)
     score = str(score)
-    text = SCORE_FONT.render("Score: "+score,1,BLACK)
+    text = LITTLE_FONT.render("Score: "+score,1,BLACK)
     win.blit(text,(800,50))
 
 def print_question(question,score):
@@ -94,11 +91,11 @@ def print_question(question,score):
     andwoordC = question['answerC']
 
     answerAButton = button(LIGHT_BLUE,(WIDTH/2-500/2),150,500,50,andwoordA)
-    answerAButton.draw(win,(0,0,0))
+    answerAButton.draw(win)
     anwserBButton = button(LIGHT_BLUE,(WIDTH/2-500/2),210,500,50,andwoordB)
-    anwserBButton.draw(win,(0,0,0))
+    anwserBButton.draw(win)
     answerCButton = button(LIGHT_BLUE,(WIDTH/2-500/2),270,500,50,andwoordC)
-    answerCButton.draw(win,(0,0,0))
+    answerCButton.draw(win)
 
     print_score(score)
     pygame.display.update()
@@ -127,19 +124,51 @@ def check_answer(userInput,correct_answer):
         return False
 
 def getHighScore():
-    with open('questions.txt','r') as file:
-        for line in file:
-            pass
-        highscore = line
-        return highscore
-
+    F = open("data/highscore.txt","r")
+    line = F.readline()
+    F.close()
+    return line
 
 
 def draw_highScore():
     highscore = getHighScore()
     text = MIDDLE_FONT.render("HighScore: "+highscore,1,BLACK)
     win.blit(text,(WIDTH/2 - text.get_width()/2,400 ))
-    
+
+def writeHighScore(score):
+    F = open("data/highscore.txt","w")
+    F.write(str(score))
+    F.close()
+
+
+
+def draw_EndScreen(score):
+    run = True
+    while(run):
+        title = TITLE_FONT.render("Quiz Game",1,BLACK)
+        thanks = MIDDLE_FONT.render("Thanks for playing",1,BLACK)
+        score = str(score)
+        scoreMessage = LITTLE_FONT.render("Je score is: "+score,1,BLACK)
+
+        win.blit(background,(0,0))
+        win.blit(title,(WIDTH/2 - title.get_width()/2,30))
+        win.blit(thanks,(WIDTH/2-thanks.get_width()/2,100))
+        win.blit(scoreMessage,(WIDTH/2-scoreMessage.get_width()/2,150))
+
+        restartButton.draw(win)
+
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+            if event.type == pygame.QUIT:
+                run = False
+                return False
+
+            if(event.type == pygame.MOUSEBUTTONDOWN):
+                if(restartButton.isOver(pos)):
+                    run = False
+                    return True
+
+        pygame.display.update()
 
 
 #main loop of the game
@@ -149,23 +178,22 @@ def main():
     while(run):
         clock.tick(FPS)
         for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+           
             if event.type == pygame.QUIT:
                 run = False
+            if(event.type == pygame.MOUSEBUTTONDOWN):
+                if(mainButton.isOver(pos)):
+                    score = startGame()
+
+                    highscore = getHighScore()
+                    highscore = int(highscore)
+                    
+                    if(score > highscore):
+                        writeHighScore(score)
+                    run = draw_EndScreen(score)
         draw_mainscreen()
-
-        for event in pygame.event.get():
-            pos = pygame.mouse.get_pos()
-        if(event.type == pygame.MOUSEBUTTONDOWN):
-            if(mainButton.isOver(pos)):
-                score = startGame()
-                highscore = getHighScore()
-                highscore = int(highscore)
-                if(score > highscore):
-                    F = open("questions.txt","a")
-                    F.write(getHighScore())
-                    F.close()
-
-
+        
     pygame.quit()
 
 
