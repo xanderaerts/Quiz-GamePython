@@ -1,4 +1,3 @@
-from re import S
 import pygame
 import os 
 import linecache
@@ -7,9 +6,7 @@ from classes import *
 
 pygame.init()
 
-#Functions
 def draw_mainscreen():
-    #win.fill(WHITE)
     title = TITLE_FONT.render("Quiz Game",1,BLACK)
     win.blit(background,(0,0))
     win.blit(title,(WIDTH/2 - title.get_width()/2,30))
