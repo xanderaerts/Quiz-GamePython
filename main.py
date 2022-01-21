@@ -15,6 +15,8 @@ def draw_mainscreen():
 
     mainButton.draw(win,(0,0,0))
 
+    draw_highScore()
+
     pygame.display.update()
 
 
@@ -44,7 +46,10 @@ def startGame():
 
                 correct = TITLE_FONT.render("CORRECT",1,GREEN)
                 win.blit(correct,(WIDTH/2 - correct.get_width()/2,30))
+
+                win.blit(correctEmoji,(WIDTH/2-correctEmoji.get_width()/2,100))
                 pygame.display.update()
+
         elif(check == False):
             i =0
             while(i < 150):
@@ -53,13 +58,16 @@ def startGame():
 
                 wrong = TITLE_FONT.render("WRONG",1,RED)
                 win.blit(wrong,(WIDTH/2 - wrong.get_width()/2,30))
+
+                win.blit(wrongEmoji,(WIDTH/2-wrongEmoji.get_width()/2,100))
+
                 pygame.display.update()
 
         pygame.display.update() 
+    return score
 
 def load_question(question,questionNR):
     keywords = ["vraag","answerA","answerB","answerC","correct_answer"]
-
 
     lineNR = 5 * (questionNR-1) + 2
     for i in range (0,5):
@@ -102,11 +110,14 @@ def print_question(question,score):
             if(event.type == pygame.MOUSEBUTTONDOWN):
                 if(answerAButton.isOver(pos)):
                     check =  check_answer("A",question['correct_answer'])
+                    return check
                 elif(anwserBButton.isOver(pos)):
                     check = check_answer("B",question['correct_answer'])
+                    return check
                 elif(answerCButton.isOver(pos)):
                     check = check_answer("C",question['correct_answer'])
-                return check
+                    return check
+                continue
 
 
 def check_answer(userInput,correct_answer):
@@ -114,6 +125,20 @@ def check_answer(userInput,correct_answer):
         return True
     else:
         return False
+
+def getHighScore():
+    with open('questions.txt','r') as file:
+        for line in file:
+            pass
+        highscore = line
+        return highscore
+
+
+
+def draw_highScore():
+    highscore = getHighScore()
+    text = MIDDLE_FONT.render("HighScore: "+highscore,1,BLACK)
+    win.blit(text,(WIDTH/2 - text.get_width()/2,400 ))
     
 
 
@@ -132,7 +157,13 @@ def main():
             pos = pygame.mouse.get_pos()
         if(event.type == pygame.MOUSEBUTTONDOWN):
             if(mainButton.isOver(pos)):
-                startGame()
+                score = startGame()
+                highscore = getHighScore()
+                highscore = int(highscore)
+                if(score > highscore):
+                    F = open("questions.txt","a")
+                    F.write(getHighScore())
+                    F.close()
 
 
     pygame.quit()

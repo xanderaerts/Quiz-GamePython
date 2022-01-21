@@ -1,7 +1,7 @@
-import pygame as pg
+import pygame
 from classes import button
 
-pg.init()
+pygame.init()
 
 #Constands 
 #COLORS
@@ -13,19 +13,26 @@ BLUE = (0,0,255)
 LIGHT_BLUE = (135,206,251)
 
 #fonts
-TITLE_FONT = pg.font.SysFont('comicans',70)
-MIDDLE_FONT = pg.font.SysFont('comicans',50)
-QUESTION_FONT = pg.font.SysFont('comicans',35)
-SCORE_FONT = pg.font.SysFont('comicans',25)
+TITLE_FONT = pygame.font.SysFont('comicans',70)
+MIDDLE_FONT = pygame.font.SysFont('comicans',50)
+QUESTION_FONT = pygame.font.SysFont('comicans',35)
+SCORE_FONT = pygame.font.SysFont('comicans',25)
+
+#IMAGES
+DEFAULT_SIZE_IMG = (200,200)
+img1 = pygame.image.load("img/correctEmoji.png")
+correctEmoji = pygame.transform.scale(img1,DEFAULT_SIZE_IMG)
+img2 = pygame.image.load("img/wrongEmoji.png")
+wrongEmoji = pygame.transform.scale(img2,DEFAULT_SIZE_IMG)
 
 #Win settings
 WIDTH,HEIGHT = 900,500
 FPS = 60
-win = pg.display.set_mode((WIDTH,HEIGHT))
-pg.display.set_caption("Quiz game")
-icon = pg.image.load("img/icon.png")
-pg.display.set_icon(icon)
-background = pg.image.load("img/background.png")
+win = pygame.display.set_mode((WIDTH,HEIGHT))
+pygame.display.set_caption("Quiz game")
+icon = pygame.image.load("img/icon.png")
+pygame.display.set_icon(icon)
+background = pygame.image.load("img/background.png")
 
 
 
