@@ -3,6 +3,7 @@ import os
 import linecache
 from constants import *
 from classes import *
+import random
 
 pygame.init()
 
@@ -25,14 +26,30 @@ def loadAmount():
     
     return amount
 
+
+def randomizeQ(amountQ):
+    order = []
+    print(amountQ)
+
+    while(len(order) < amountQ):
+        q = random.randint(1,amountQ)
+        print("het getal",q)
+        if(q not in order):
+            order.append(q)
+            print(order)
+    print("order of list",order) 
+    return order
+           
 def startGame():
     score = 0
     totQuestions = loadAmount()
-    for i in range (0,totQuestions):
+    questoinsOrder = randomizeQ(totQuestions)
+    for i in questoinsOrder:
+
         win.blit(background,(0,0))
 
         question = {}
-        load_question(question,i+1)
+        load_question(question,i)
         check = print_question(question,score)
 
         if(check == True):
