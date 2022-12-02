@@ -29,15 +29,11 @@ def loadAmount():
 
 def randomizeQ(amountQ):
     order = []
-    print(amountQ)
 
     while(len(order) < amountQ):
         q = random.randint(1,amountQ)
-        print("het getal",q)
         if(q not in order):
             order.append(q)
-            print(order)
-    print("order of list",order) 
     return order
            
 def startGame():
